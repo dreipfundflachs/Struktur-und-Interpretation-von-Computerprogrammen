@@ -1,0 +1,50 @@
+%LaTeX
+\synctex=1
+\documentclass[a4paper,11pt,reqno]{amsart}
+\usepackage[bb,wide,cthms,tikz]{gewoehn} %Custom package by the author. 
+%Options: (bb, bf); (tight, wide, wider); (thms, sthms, cthms, pthms)
+\usepackage{newpxtext}
+\renewcommand{\sfdefault}{lmss}
+\usepackage[euler-digits]{eulervm}
+\usepackage[german]{babel}
+\renewcommand{\datename}{\textit{Datum}:}
+\usepackage[bookmarks=false, pdfpagemode=UseNone, pagebackref, linktocpage=true,
+colorlinks=true, linkcolor=RoyalBlue, citecolor=BrickRed,
+urlcolor=RoyalBlue]{hyperref}
+
+\theoremstyle{uremark}
+\newtheorem*{loes}{L\"osung zur \"Ubung 1.1}
+\begin{document}
+
+\title[]{L\"osung zur \"Ubung 1.1 -- Struktur und Interpretation von
+Computerprogrammen (SICP) von H.~Abelson und G.\,J.~Sussman}
+\author{dreipfundflachs --
+\href{https://github.com/dreipfundflachs}{\ttt{https://github.com/dreipfundflachs}}}
+\date{\today}
+\maketitle
+\
+
+\begin{loes}\ 
+\begin{enumerate}[label=\small$\bullet$]
+    \item \texttt{10}
+    \item \texttt{12}
+    \item \texttt{8}
+    \item \texttt{3}
+    \item \texttt{6} ($ = 8  + (-2)$)
+    \item definiert $ a $, druckt aber nichts als Antwort zur\"uck
+    \item definiert $ b $, druckt aber nichts als Antwort zur\"uck
+    \item \texttt{19} ($ = 3 + 4 + (3 \times 4) $) 
+    \item \texttt{\#f}
+    \item \texttt{4} ($ = b $, denn $ b > a $ und $ b < a \times b $ sind beide
+            wahr)
+    \item \texttt{16} ($ = 6 + 7 + a $, denn der erste Pr\"adikat ist
+        falsch, w\"ahrend der zweite wahr ist)
+    \item \texttt{6} ($ = 2 + b $, denn $ b > a $ ist wahr)
+    \item \texttt{16} ($ = b \times (a + 1) $, weil die erste Bedingung in der
+        Fallunterscheidung \ttt{cond} falsch ist, w\"ahrend die zweite wahr ist)
+
+
+\end{enumerate}
+\end{loes}
+
+\end{document}
