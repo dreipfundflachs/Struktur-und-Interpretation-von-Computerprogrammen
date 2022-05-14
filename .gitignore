@@ -1,6 +1,6 @@
 *.log
 *.aux
 *.synctex.gz
-*.solution_template.pdf
-*.solution_template.tex
+solution_template.pdf
+solution_template.tex
 
