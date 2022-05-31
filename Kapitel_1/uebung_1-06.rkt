@@ -26,7 +26,7 @@
 ; direkt ausgerufen wird. Stattdessen ruft der Programm eine Prozedur neues_if
 ; auf mit einem _rekursiven_ Argument (wurzel_iter (verbessern schaetzwert
 ; x)). Im Kontrast zu cond, muss diesen Argument dann immer wieder ausgewertet
-; werden, sogar wenn der Schätzwert schon gut genug ist.
+; werden.
 
 (define (abs x)
   (if (> x 0) x (- x)))
