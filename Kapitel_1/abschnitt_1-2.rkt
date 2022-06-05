@@ -30,3 +30,25 @@
         (fib-iter (+ a b) a (- zaehler 1))))
   (fib-iter 1 0 n)
     )
+
+(define (potenz b n)
+  (if (= n 0)
+    1
+    (* b (potenz b (- n 1)))))
+
+(define (potenz b n)
+  (pot-iter b n 1))
+
+(define (pot-iter b zaehler produkt)
+  (if (= zaehler 0)
+    produkt
+    (pot-iter b (- zaehler 1) (* b produkt))))
+
+(define (schnell-pot b n)
+  (cond ((= n 0) 1)
+        ((gerade? n) (quadrat (schnell-pot b (/ n 2))))
+        (else (* b (schnell-pot b (- n 1))))))
+
+(define (gerade? n) (= (remainder n 2) 0))
+
+(define (quadrat x) (* x x))
