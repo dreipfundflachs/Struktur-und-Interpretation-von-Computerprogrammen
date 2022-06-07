@@ -1,0 +1,119 @@
+%LaTeX
+\synctex=1
+\documentclass[a4paper,11pt,reqno]{amsart}
+\usepackage[bb,wide,cthms,tikz]{gewoehn} %Custom package by the author. 
+%Options: (bb, bf); (tight, wide, wider); (thms, sthms, cthms, pthms)
+\usepackage[german]{babel}
+\usepackage{mathtools}
+\DeclarePairedDelimiter{\floor}{\lfloor}{\rfloor}
+\renewcommand{\datename}{\textit{Datum}:}
+\theoremstyle{uremark}
+\newtheorem*{loes}{L\"osung zur \"Ubung 1.13}
+\begin{document}
+
+\title[]{L\"osung zur \"Ubung 1.13 -- Struktur und Interpretation von
+Computerprogrammen (SICP) von H.~Abelson und G.\,J.~Sussman}
+\author{\href{https://github.com/pzuehlke}{\ttt{https://github.com/pzuehlke}}}
+\date{\today}
+\maketitle
+\
+
+
+\begin{loes} 
+    Es sei $ x_n = \text{Fib}\,(n) $. Man beachte zuerst, dass die folgende
+    zwei Gleichungen f\"ur alle $ n \ge 1 $ gelten:
+    \begin{equation*}%\label{E:}
+        \begin{cases}
+            x_{n + 1} & = x_{n} + x_{n - 1} \\
+            x_n & = x_n
+        \end{cases}
+    \end{equation*}
+    Andererseits sind sie \"aquivalent zu der Gleichung
+    \begin{equation*}%\label{E:}
+        \begin{bmatrix}
+            x_{n + 1} \\
+            x_n
+        \end{bmatrix} =\begin{bmatrix}
+            1 & 1 \\
+            1 & 0 
+        \end{bmatrix}
+        \begin{bmatrix}
+            x_n \\
+            x_{n - 1}
+        \end{bmatrix}.
+        \end{equation*}
+        Sei $ A = \begin{bmatrix}
+            1 & 0 \\
+            1 & 1 
+        \end{bmatrix} $ die Matrix an der rechten Seite der vorhergehenden
+        Gleichung. Das
+        charakteristiche Polynom von $ A $ ist $ \la^2 - \la - 1 $, deren
+        Wurzeln
+        \begin{equation*}%\label{E:}
+            \phi = \frac{1 + \sqrt{5}}{2} \quad \text{und} \quad \psi = \frac{1
+            - \sqrt{5}}{2}
+        \end{equation*}
+        sind, mit zugeh\"origen Eigenvektoren $ (\phi, 1) $, bzw. $ (\psi, 1) $
+        (oder irgendwelche Vektoren die damit kollinear sind).
+
+        Es seien also
+        \begin{equation*}%\label{E:}
+            P = \begin{bmatrix}
+                \phi & \psi \\
+                1 & 1 
+            \end{bmatrix} \quad \text{und} \quad D = \begin{bmatrix}
+                \phi & 0 \\
+                0 & \psi 
+            \end{bmatrix}.
+        \end{equation*}
+        Dann gilt $ A = PDP^{-1} $, und deswegen auch $ A^n = PD^nP^{-1} $
+        f\"ur alle $ n \ge 0 $. Somit gilt
+        \begin{equation*}%\label{E:}
+        \begin{bmatrix}
+            x_{n + 1} \\
+            x_n
+        \end{bmatrix} = A^n
+        \begin{bmatrix}
+            x_1 \\
+            x_{0}
+        \end{bmatrix} = PD^n P^{-1}
+        \begin{bmatrix}
+            1 \\
+            0
+        \end{bmatrix}.
+    \end{equation*}
+    Man berechnet leicht aus dem letzten Ausdruck, dass 
+    \begin{equation*}%\label{E:}
+        \begin{bmatrix}
+            x_{n + 1} \\
+            x_n
+        \end{bmatrix} = 
+        \frac{1}{\sqrt{5}}\begin{bmatrix}
+            \phi & \psi \\
+            1 & 1 
+        \end{bmatrix} \begin{bmatrix}
+            \phi^n & 0 \\
+            0 & \psi^n 
+        \end{bmatrix} \begin{bmatrix}
+            1 & -\psi \\
+            -1 & \phi 
+        \end{bmatrix} \begin{bmatrix}
+            1 \\
+            0  
+        \end{bmatrix} = \frac{1}{\sqrt{5}}\begin{bmatrix}
+            \phi^{n + 1} - \psi^{n + 1} \\
+            \phi^n - \psi^n
+        \end{bmatrix}.
+    \end{equation*}
+    Schlie\ss lich haben wir damit bewiesen, dass
+    \begin{equation*}%\label{E:}
+        \qquad \boxed{\text{Fib}(n) = x_n = \frac{1}{\sqrt{5}}\big( \phi^n -
+        \psi^n \big)}\qquad (n \ge 0).
+    \end{equation*}
+    Au\ss erdem, weil $ \psi \approx 0,618 $ gilt, ist $ x_n $
+    gleich $ \floor{\frac{\phi^n}{\sqrt{5}}} $ f\"ur alle $ n $, wobei $
+    \floor{\cdot} $ die Abrundungsfunktion bezeichnet (vgl.~die Bemerkung an
+    Seite 37). \qed
+\end{loes}
+
+\end{document}
