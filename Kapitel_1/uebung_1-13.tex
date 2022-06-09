@@ -5,7 +5,7 @@
 %Options: (bb, bf); (tight, wide, wider); (thms, sthms, cthms, pthms)
 \usepackage[german]{babel}
 \usepackage{mathtools}
-\DeclarePairedDelimiter{\floor}{\lfloor}{\rfloor}
+\DeclarePairedDelimiter{\nint}{[}{]}
 \renewcommand{\datename}{\textit{Datum}:}
 \theoremstyle{uremark}
 \newtheorem*{loes}{L\"osung zur \"Ubung 1.13}
@@ -14,7 +14,7 @@
 \title[]{L\"osung zur \"Ubung 1.13 -- Struktur und Interpretation von
 Computerprogrammen (SICP) von H.~Abelson und G.\,J.~Sussman}
 \author{\href{https://github.com/pzuehlke}{\ttt{https://github.com/pzuehlke}}}
-\date{\today}
+% \date{\today}
 \maketitle
 \
 
@@ -43,8 +43,8 @@ Computerprogrammen (SICP) von H.~Abelson und G.\,J.~Sussman}
         \end{bmatrix}.
         \end{equation*}
         Sei $ A = \begin{bmatrix}
-            1 & 0 \\
-            1 & 1 
+            1 & 1 \\
+            1 & 0 
         \end{bmatrix} $ die Matrix an der rechten Seite der vorhergehenden
         Gleichung. Das
         charakteristiche Polynom von $ A $ ist $ \la^2 - \la - 1 $, deren
@@ -110,10 +110,9 @@ Computerprogrammen (SICP) von H.~Abelson und G.\,J.~Sussman}
         \qquad \boxed{\text{Fib}(n) = x_n = \frac{1}{\sqrt{5}}\big( \phi^n -
         \psi^n \big)}\qquad (n \ge 0).
     \end{equation*}
-    Au\ss erdem, weil $ \psi \approx 0,618 $ gilt, ist $ x_n $
-    gleich $ \floor{\frac{\phi^n}{\sqrt{5}}} $ f\"ur alle $ n $, wobei $
-    \floor{\cdot} $ die Abrundungsfunktion bezeichnet (vgl.~die Bemerkung an
-    Seite 37). \qed
+    Au\ss erdem, weil $ \psi \approx -0,618 $, ist $ x_n = \text{Fib}\,(n) $
+    die n\"achste ganze Zahl zu $ \frac{\phi^n}{\sqrt{5}} $ f\"ur alle $ n \ge
+    1$ (vgl.~die Bemerkung an Seite 37).  \qed
 \end{loes}
 
 \end{document}
