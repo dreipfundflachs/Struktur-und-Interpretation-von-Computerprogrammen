@@ -52,3 +52,43 @@
 (define (gerade? n) (= (remainder n 2) 0))
 
 (define (quadrat x) (* x x))
+
+; Unterabschnitt 1.2.5
+
+(define (ggt a b)
+         (if (= b 0)
+           a
+           (ggt b (remainder a b))))
+
+; Unterabschnitt 1.2.6
+
+(define (kleinster-teiler n)
+  (find-teiler n 2))
+
+(define (finde-teiler n pruef-teiler)
+  (cond ((> (quadrat pruef-teiler) n) n)
+        ((teilt? pruef-teiler n) pruef-teiler)
+        (else (finde-teiler n (+ 1 pruef-teiler)))))
+
+(define (teilt? a b)
+  (= 0 (remainder b a)))
+
+(define (primzahl? n)
+  (= n (kleinster-teiler n)))
+
+(define (potmod basis exponent m)
+  (cond ((= 0 exponent) 1)
+        ((gerade? exponent)
+         (remainder (quadrat (potmod basis (/ exponent 2) m))
+                    m))
+        (else
+          (remainder (* basis (potmod basis (- exponent 1) m)) m))))
+
+(define (fermat-test n)
+  (define (versuch a) (= (potmod a n n) a))
+  (versuch (+ 1 (random (- n 1)))))
+
+(define (schnell-primzahl? n x-mal)
+  (cond ((= x-mal 0) true)
+        ((fermat-test n) (schnell-primzahl? n (- x-mal 1)))
+        (else false)))
