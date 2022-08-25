@@ -16,6 +16,14 @@
           (else
             (cons (- (/ (abs n) g)) (/ (abs d) g))))))
 
+(define a (konstr-rat 1 2))
+
+(define b (konstr-rat 1 (- 2)))
+
+(define c (konstr-rat (-1) (2)))
+
+(define d (konstr-rat (- 1) (- 2)))
+
 ; Andere einschlägige Prozeduren:
 (define (zaehler z) (car z))
 
@@ -47,7 +55,3 @@
   (display (zaehler z))
   (display "/")
   (display (nenner z)))
-
-(define ein-halbes (konstr-rat 1 2))
-
-(define ein-drittel (konstr-rat 1 3))
