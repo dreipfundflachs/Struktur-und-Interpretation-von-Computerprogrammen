@@ -14,7 +14,7 @@
     (inc (summe_r (dec a) b))))
 
 ; Im Gegensatz dazu, erzeugt die folgende rekursive Prozedur zur Berechnung
-; einer Summe erzeugt einen linear iterativen Prozess:
+; einer Summe einen linear iterativen Prozess:
 (define (summe_i a b)
   (if (= a 0)
     b

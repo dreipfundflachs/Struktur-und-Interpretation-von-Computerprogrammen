@@ -63,7 +63,7 @@
 ; Unterabschnitt 1.2.6
 
 (define (kleinster-teiler n)
-  (find-teiler n 2))
+  (finde-teiler n 2))
 
 (define (finde-teiler n pruef-teiler)
   (cond ((> (quadrat pruef-teiler) n) n)
@@ -82,7 +82,9 @@
          (remainder (quadrat (potmod basis (/ exponent 2) m))
                     m))
         (else
-          (remainder (* basis (potmod basis (- exponent 1) m)) m))))
+          (remainder (* basis
+                        (potmod basis (- exponent 1) m))
+                     m))))
 
 (define (fermat-test n)
   (define (versuch a) (= (potmod a n n) a))

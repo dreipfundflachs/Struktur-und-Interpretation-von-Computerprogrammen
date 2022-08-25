@@ -8,7 +8,7 @@
            (ggt b (remainder a b))))
 
 ; Wir werden im Folgenden die Abkürzungen: "remainder" -> "rem" und
-; "Auswertung" -> "Ausw." benuten um die Länge der Ausdrücke zu begrenzen.
+; "Auswertung" -> "Ausw." benutzen, um die Länge der Ausdrücke zu begrenzen.
 ;
 ; (a) Normale Reihenfolge:
 ;
@@ -54,6 +54,7 @@
 ;
 ; Insgesamt werden also bei Auswertung von (ggt 206 40) in der normalen
 ; Reihenfolge 18 = 14 + 4 remainder-Operationen ausgeführt.
+;
 ;
 ; (b) Applikative Reihenfolge:
 ;

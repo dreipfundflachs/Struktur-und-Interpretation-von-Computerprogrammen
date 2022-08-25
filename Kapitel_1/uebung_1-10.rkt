@@ -18,8 +18,18 @@
 ;
 ; (a)
 ;   Antwort: A(1, 10) = 2^10.
-;   Beweis: A(1, 10) = A(0, A(1, 9)) = 2 A(1, 9) = 2 A(0, A(1, 8)) = 4 A(1, 8)
-;   = ... = (2^15) A(1, 1) = (2^15) 2 = 2^16. Allgemeiner kann man mithilfe
+;   Beweis:
+;     A(1, 10)
+;   = A(0, A(1, 9))
+;   = 2 A(1, 9)
+;   = 2 A(0, A(1, 8))
+;   = 4 A(1, 8)
+;   = ... 
+;   = (2^15) A(1, 1)
+;   = (2^15) 2
+;   = 2^16
+
+;   Allgemeiner kann man mithilfe
 ;   vollständiger Induktion beweisen, dass A(1, n) = 2^n für n > 0 gilt.   
 ;
 ; (b)

@@ -23,7 +23,7 @@
 ; werden, sogar wenn der erste Schätzwert gut genug ist. 
 ;
 ; Das Problem hier liegt beim Tat, dass cond, die eine Sonderform ist, nicht
-; direkt ausgerufen wird. Stattdessen ruft der Programm eine Prozedur neues_if
+; direkt aufgerufen wird. Stattdessen ruft der Programm eine Prozedur neues_if
 ; auf mit einem _rekursiven_ Argument (wurzel_iter (verbessern schaetzwert
 ; x)). Im Kontrast zu cond, muss diesen Argument dann immer wieder ausgewertet
 ; werden.
