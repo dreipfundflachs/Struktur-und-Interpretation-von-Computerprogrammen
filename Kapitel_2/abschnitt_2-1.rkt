@@ -2,6 +2,8 @@
 ;  SICP - Abschnitt 2.1  ;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;
 
+; 2.1.1
+
 (define (ggt a b)
   (if (= b 0)
     a
@@ -45,3 +47,16 @@
 (define ein-halbes (konstr-rat 1 2))
 
 (define ein-drittel (konstr-rat 1 3))
+
+; 2.1.3
+
+(define (cons x y)
+  (define (zuteilen m)
+    (cond ((= m 0) x)
+          ((= m 1) y)
+          (else (error "Argument nicht 0 weder 1 -- CONS" m))))
+  zuteilen)
+
+(define (car z) (z 0))
+
+(define (cdr z) (z 1))

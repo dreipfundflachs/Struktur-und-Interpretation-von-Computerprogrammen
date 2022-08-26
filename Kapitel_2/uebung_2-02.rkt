@@ -17,6 +17,9 @@
   (display (y-koord p))
   (display ")"))
 
+(define (gleiche-punkte? p q)
+  (and (= (x-koord p) (x-koord q))
+       (= (y-koord p) (y-koord q))))
 
 ; Implementierung von Strecken
 
