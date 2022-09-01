@@ -1,6 +1,17 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;;;  Lösung zur Übung 1.22 - SICP  ;;;;
+;;;;  Lösung zur Übung 1.23 - SICP  ;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+(define (kleinster-teiler n) (finde-teiler n 2))
+
+(define (finde-teiler n pruef-teiler)
+  (define (naechstes k)
+    (if (= k 2)
+      3
+      (+ k 2)))
+  (cond ((> (quadrat pruef-teiler) n) n)
+        ((teilt? pruef-teiler n) pruef-teiler)
+        (else (finde-teiler n (naechstes pruef-teiler)))))
 
 (define (runtime) (current-milliseconds))
 
@@ -27,11 +38,8 @@
          (newline)
          (display "Found prime: ")
          (primzahl-test-zeit a)
-         (primzahl-suche (+ a 1) b (- anzahl 1))]
-        [else (primzahl-suche (+ a 1) b anzahl)]))
-
-(define (kleinster-teiler n)
-  (finde-teiler n 2))
+         (primzahl-suche (+ a 2) b (- anzahl 1))]
+        [else (primzahl-suche (+ a 2) b anzahl)]))
 
 (define (finde-teiler n pruef-teiler)
   (cond ((> (quadrat pruef-teiler) n) n)

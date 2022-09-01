@@ -1,15 +1,33 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;;;  Lösung zur Übung 1.22 - SICP  ;;;;
+;;;;  Lösung zur Übung 1.24 - SICP  ;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 (define (runtime) (current-milliseconds))
+
+(define (potmod basis exponent m)
+  (cond ((= exponent 0) 1)
+        ((gerade? exponent) (remainder
+                              (quadrat (potmod basis (/ exponent 2) m))
+                              m))
+        (else (remainder (* (potmod basis (- exponent 1) m) basis)
+                         m))))
+
+(define (fermat-test n)
+  (define (versuch a)
+  (= (potmod a n n) a))
+  (versuch (+ 2 (random (- n 2)))))
+
+(define (schnell-primzahl? n x-mal)
+  (cond ((= x-mal 0) true)
+        ((fermat-test n) schnell-primzahl? n (- x-mal 1))
+        (else false)))
 
 (define (ausgabe-laufzeit laufzeit)
   (display " *** ")
   (display laufzeit))
 
 (define (start-primzahl-test n startzeit)
-  (when (primzahl? n)
+  (when (schnell-primzahl? n 40)
     (ausgabe-laufzeit (- (runtime) startzeit))))
 
 (define (primzahl-test-zeit n)
@@ -23,7 +41,7 @@
          (newline)
          (display " *** Ende ***")]
         [(gerade? a) (primzahl-suche (+ a 1) b anzahl)]
-        [(primzahl? a)
+        [(schnell-primzahl? a 40)
          (newline)
          (display "Found prime: ")
          (primzahl-test-zeit a)
@@ -48,10 +66,6 @@
 
 (define (gerade? n) (= 0 (remainder n 2)))
 
-; Beispiele:
+; Beispiel:
 
-; (primzahl-suche 1000000000 2000000000 3)
-; (primzahl-suche 10000000000 20000000000 3)
-; (primzahl-suche 100000000000 200000000000 3)
-; (primzahl-suche 1000000000000 2000000000000 3)
-; (primzahl-suche 10000000000000 20000000000000 3)
+; (primzahl-suche 1000000 2000000 3)
