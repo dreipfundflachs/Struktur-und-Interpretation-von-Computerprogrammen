@@ -36,7 +36,7 @@
         [(gerade? a) (primzahl-suche (+ a 1) b anzahl)]
         [(primzahl? a)
          (newline)
-         (display "Found prime: ")
+         (display "Primzahl gefunden: ")
          (primzahl-test-zeit a)
          (primzahl-suche (+ a 2) b (- anzahl 1))]
         [else (primzahl-suche (+ a 2) b anzahl)]))

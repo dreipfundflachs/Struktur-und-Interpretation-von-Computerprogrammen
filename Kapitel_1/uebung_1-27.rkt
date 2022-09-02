@@ -34,14 +34,14 @@
 
 ; Beispiele:
 
-(primzahl? 561) ; ist teilbar durch 3.
+(primzahl? 561) ; ist durch 3 teilbar.
 
-(primzahl? 1105) ; ist teilbar durch 5.
+(primzahl? 1105) ; ist durch 5 teilbar.
 
-(primzahl? 1729) ; ist teilbar durch 7.
+(primzahl? 1729) ; ist durch 7 teilbar.
 
-(primzahl? 2465) ; ist teilbar durch 5.
+(primzahl? 2465) ; ist durch 5 teilbar.
 
-(primzahl? 2821); ist teilbar durch 7. 
+(primzahl? 2821); ist durch 7 teilbar. 
 
-(primzahl? 6601) ; ist teilbar durch 7.
+(primzahl? 6601) ; ist durch 7 teilbar.

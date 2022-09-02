@@ -45,3 +45,52 @@
   (define (add-dx x) (+ x dx))
   (* (summe f (+ a (/ dx 2.0)) add-dx b)
      dx))
+
+(define (pi-summe a b)
+  (summe (lambda (x) (/ 1.0 (* x (+ x 2))))
+         a
+         (lambda (x) (+ x 4))
+         b))
+
+(define (integral f a b dx)
+  (* (summe f
+            (+ a (/ dx 2.0))
+            (lambda (x) (+ x dx))
+            b)
+     dx))
+
+(define (f x y)
+  (define (hilfs-f a b)
+    (+ (* x (quadrat a)) (* y b) (* a b)))
+  (hilfs-f (+ 1 (* x y)) (- 1 y)))
+
+(define (f x y)
+  ((lambda (a b)
+     (+ (* x (quadrat a))
+        (* y b)
+        (* a b)))
+   (+ 1 (* x y)) (- 1 y)))
+
+(define (f x y)
+  (let ((a (+ 1 (* x y)))
+        (b (- 1 y)))
+    (+ (* x (quadrat a)) (* y b) (* a b))))
+
+(define (kubik x) (* x x x))
+
+(define (suche f neg-punkt pos-punkt eps)
+  (let ((mittel-punkt (mittelwert neg-punkt pos-punkt)))
+        (if (nah-genug? neg-punkt pos-punkt eps)
+          mittel-punkt
+          (let ((test-wert (f mittel-punkt)))
+            (cond ((positive? test-wert)
+                   (suche f neg-punkt mittel-punkt))
+                  ((negative? test-wert)
+                   (suche f mittel-punkt pos-punkt))
+                  (else mittel-punkt))))))
+
+(define (nah-genug? x y eps)
+  (< (abs (- x y)) eps))
+
+(define (mittelwert a b)
+  (/ (+ a b) 2))
