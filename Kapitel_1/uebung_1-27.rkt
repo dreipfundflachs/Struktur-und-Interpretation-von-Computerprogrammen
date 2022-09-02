@@ -26,10 +26,10 @@
 (define (primzahl? n)
   (if (fermat-test n)
     [begin (display n)
-     (display " is a prime number or maybe a Carmichael number.")
+     (display " ist eine Primzahl oder vielleicht eine Carmichael-Zahl.")
      (newline)]
     [begin (display n)
-     (display " is certainly _not_ a prime number, nor a Carmichael number.")
+     (display " ist weder eine Primzahl noch eine Carmichael-Zahl.")
      (newline)]))
 
 ; Beispiele:
