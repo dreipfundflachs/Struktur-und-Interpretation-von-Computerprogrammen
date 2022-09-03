@@ -2,6 +2,8 @@
 ;  SICP - Abschnitt 1.3  ;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;
 
+(define (quadrat x) (* x x))
+
 (define (kubik x) (* x x x))
 
 (define (summe-ganze-zahlen a b)
@@ -76,7 +78,6 @@
         (b (- 1 y)))
     (+ (* x (quadrat a)) (* y b) (* a b))))
 
-(define (kubik x) (* x x x))
 
 (define (suche f neg-punkt pos-punkt eps)
   (let ((mittel-punkt (mittelwert neg-punkt pos-punkt)))
@@ -84,13 +85,55 @@
           mittel-punkt
           (let ((test-wert (f mittel-punkt)))
             (cond ((positive? test-wert)
-                   (suche f neg-punkt mittel-punkt))
+                   (suche f neg-punkt mittel-punkt eps))
                   ((negative? test-wert)
-                   (suche f mittel-punkt pos-punkt))
+                   (suche f mittel-punkt pos-punkt eps))
                   (else mittel-punkt))))))
+
+(define (intervall-halbierung f a b eps)
+  (let ((a-wert (f a))
+        (b-wert (f b)))
+    (cond ((and (negative? a-wert) (positive? b-wert))
+           (suche f a b eps))
+          ((and (positive? a-wert) (negative? b-wert))
+           (suche f b a eps))
+          (else (error "Werte haben gleiches Vorzeichen" a b)))))
 
 (define (nah-genug? x y eps)
   (< (abs (- x y)) eps))
 
 (define (mittelwert a b)
   (/ (+ a b) 2))
+
+(define (kubik x) (* x x x))
+
+(define (p x) (- (kubik x) (* 2 x) 3))
+
+(define (fixpunkt f schaetzwert toleranz)
+  (define (versuch schaetzung)
+    (let ((naechstes (mittelwert (f schaetzung) schaetzung)))
+      (if (nah-genug? schaetzung naechstes toleranz)
+        naechstes
+        (begin
+          (display naechstes)
+          (newline)
+          (versuch naechstes)))))
+  (versuch schaetzwert))
+
+(define (wurzel x)
+  (fixpunkt (lambda (y) (mittelwert y (/ x y))) 1.0 0.00001))
+  
+(define (mittelwert-daempfung f)
+  (lambda (x) (mittelwert x (f x))))
+
+(define epsilon 0.00001)
+(define (wurzel x)
+  (fixpunkt (mittelwert-daempfung (lambda (y) (/ x y)))
+                                  1.0
+                                  epsilon))
+
+(define (kubikwurzel x)
+  (fixpunkt (mittelwert-daempfung
+              (lambda (y) (/ x (quadrat y))))
+              1.0
+              epsilon))

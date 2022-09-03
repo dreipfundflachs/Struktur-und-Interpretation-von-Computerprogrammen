@@ -1,11 +1,6 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;;;  Lösung zur Übung 1.35 - SICP  ;;;;
+;;;;  Lösung zur Übung 1.36 - SICP  ;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
-; x ist ein Fixpunkt der Transformation x -> 1 + 1/x genau dann, wenn 
-; x^2 + x - 1 = 0. Das heißt, diese Funktion hat genau zwei Fixpunkte:
-;   phi = [1 + sqrt(5)] / 2     und
-;   psi = [1 - sqrt(5)] / 2.
 
 (define eps 0.00001)
 
@@ -26,4 +21,21 @@
           (versuch naechstes)))))
   (versuch schaetzwert))
 
-(define phi (fixpunkt (lambda (x) (+ 1 (/ 1 x))) 1.0 eps))
+(define (fixpunkt-langsam f schaetzwert toleranz)
+  (define (versuch schaetzung)
+    (let ((naechstes (f schaetzung)))
+      (if (nah-genug? schaetzung naechstes toleranz)
+        naechstes
+        (begin
+         (display naechstes)
+         (newline)
+         (versuch naechstes)))))
+  (versuch schaetzwert))
+
+(define (g x) (/ (log 1000) (log x)))
+
+; Beispiele:
+
+; (fixpunkt-langsam g 2 eps)
+
+; (fixpunkt g 2 eps)
