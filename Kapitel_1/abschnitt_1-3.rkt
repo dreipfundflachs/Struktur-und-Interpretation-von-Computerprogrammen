@@ -127,6 +127,7 @@
   (lambda (x) (mittelwert x (f x))))
 
 (define epsilon 0.00001)
+
 (define (wurzel x)
   (fixpunkt (mittelwert-daempfung (lambda (y) (/ x y)))
                                   1.0
@@ -137,3 +138,30 @@
               (lambda (y) (/ x (quadrat y))))
               1.0
               epsilon))
+
+(define (ableitung g)
+  (lambda (x)
+    (/ (- (g (+ x dx)) (g x))
+       dx)))
+
+(define dx 0.00001)
+
+(define (newton-transform g)
+  (lambda (x) (- x (/ (g x) ((ableitung g) x)))))
+
+(define (newton g schaetzung toleranz)
+  (fixpunkt (newton-transform g) schaetzung toleranz))
+
+(define (wurzel x)
+  (newton (lambda (y) (- (quadrat y) x))
+          1.0
+          epsilon))
+
+(define (fixpunkt-von-transform g transform schaetzung toleranz)
+  (fixpunkt (transform g) schaetzung toleranz))
+
+(define (wurzel x)
+  (fixpunkt-von-transform (lambda (y) (/ x y))
+                          mittelwert-daempfung
+                          1.0
+                          epsilon))
