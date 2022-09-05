@@ -2,7 +2,6 @@
 ;;;;  Lösung zur Übung 1.27 - SICP  ;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-
 (define (potmod basis exponent m)
   (cond ((= exponent 0) 1)
         ((gerade? exponent) (remainder
