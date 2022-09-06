@@ -53,3 +53,48 @@
   (if (null? list1)
     list2
     (cons (car list1) (append (cdr list1) list2))))
+
+(define (skaliere-liste elemente faktor)
+  (if (null? elemente)
+    null
+    (cons (* (car elemente) faktor)
+          (skaliere-liste (cdr elemente) faktor))))
+
+(define (abb proz elemente)
+  (if (null? elemente)
+    null
+    (cons (proz (car elemente))
+          (abb proz (cdr elemente)))))
+
+(define (skaliere-liste elemente faktor)
+  (abb (lambda (x) (* x faktor))
+       elemente))
+
+(define test1
+  (lambda (x y . z) (+ x y (car z))))
+
+(define test2
+  (lambda z (cadr z)))
+
+(define x (cons (list 1 2) (list 3 4)))
+
+(define (zaehle-blaetter x)
+  (cond ((null? x) 0)
+        ((not (pair? x)) 1)
+        (else (+ (zaehle-blaetter (car x))
+                 (zaehle-blaetter (cdr x))))))
+
+(define (skaliere-baum baum faktor)
+  (cond ((null? baum) null)
+        ((not (pair? baum)) (* faktor baum))
+        (else (cons (skaliere-baum (car baum) faktor)
+                    (skaliere-baum (cdr baum) faktor)))))
+
+(define liste-1 (list 1 (list 2 (list 3 4) 5) (list 6 7)))
+
+(define (skaliere-baum baum faktor)
+  (map (lambda teilbaum)
+       (if (pair? teilbaum)
+         (skaliere-baum teilbaum faktor)
+         (* faktor teilbaum))
+  baum))

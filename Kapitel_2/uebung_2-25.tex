@@ -1,0 +1,43 @@
+%LaTeX
+\synctex=1
+\documentclass[a4paper,11pt,reqno]{amsart}
+\usepackage[bb,wide,cthms,tikz]{gewoehn} %Custom package by the author. 
+%Options: (bb, bf); (tight, wide, wider); (thms, sthms, cthms, pthms)
+% \usepackage[german]{babel}
+\renewcommand{\datename}{\textit{Datum}:}
+\theoremstyle{uremark}
+\newtheorem*{loes}{L\"osung}
+\begin{document}
+
+\title[]{L\"osung zur \"Ubung 2.25 -- Abelson und Sussman, Struktur und
+    Interpretation von Computerprogrammen (SICP)} 
+\author{\href{https://github.com/pzuehlke}{\ttt{https://github.com/pzuehlke}}}
+% \date{\today}
+\maketitle
+\
+
+\noindent \tit{\"Ubung 2.25}: Geben Sie Kombinationen von \ttt{car} und
+\ttt{cdr} an, die die $ 7 $ aus jeder der folgenden Listen herauspicken:
+\begin{enumerate}
+    \item [(a)] \ttt{(1 3 (5 7) 9)}
+    \item [(b)] \ttt{((7))} 
+    \item [(c)] \ttt{(1 (2 (3 (4 (5 (6 7))))))}
+\end{enumerate}
+
+\begin{loes}\ 
+\begin{enumerate}[label=\small$\bullet$]
+    \item [(a)] \texttt{(car (cdr (car (cdr (cdr (liste))))))}
+    \item [(b)] \texttt{(car (car liste))}
+    \item [(c)] Man beachte zuerst, dass die Elemente dieser Liste nicht
+        einfach die Zahlen $ 1, 2, \dots, 7 $ sind, sondern die Zahl $ 1 $ und
+        eine andere Liste. Die letztere enth\"ahlt die Zahl $ 2 $ und eine
+        andere Liste, usw.. Wir brauchen f\"unf Anwendungen von \texttt{cadr}
+        um $ (6\ 7) $ zu erreichen, und dann noch einen \texttt{cadr} um die $
+        7 $ herauszupicken:
+        \begin{equation*}%\label{E:}
+            \texttt{(cadr (cadr (cadr (cadr (cadr (cadr liste))))))}
+        \end{equation*}
+\end{enumerate}
+\end{loes}
+
+\end{document}
