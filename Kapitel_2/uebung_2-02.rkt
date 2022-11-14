@@ -2,6 +2,13 @@
 ;;;;  Lösung zur Übung 2.02 - SICP  ;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
+#lang racket
+
+(provide konstr-punkt x-koord y-koord gleiche-punkte?
+         konstr-strecke anfangs-punkt end-punkt mittelwert
+         mittel-punkt-strecke drucke-strecke
+         a b s m)
+
 ; Implementierung von Punkten
 
 (define (konstr-punkt x y) (cons x y))

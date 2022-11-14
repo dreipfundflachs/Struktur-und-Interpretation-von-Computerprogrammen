@@ -2,6 +2,13 @@
 ;;;;  Lösung zur Übung 2.01 - SICP  ;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
+#lang racket
+
+(provide ggt konstr-rat zaehler nenner
+         add-rat sub-rat mul-rat div-rat
+         gleich-rat? drucke-rat
+         a b c d)
+
 (define (ggt a b)
   (if (= b 0)
     a
@@ -20,7 +27,7 @@
 
 (define b (konstr-rat 1 (- 2)))
 
-(define c (konstr-rat (-1) (2)))
+(define c (konstr-rat (- 1) 2))
 
 (define d (konstr-rat (- 1) (- 2)))
 

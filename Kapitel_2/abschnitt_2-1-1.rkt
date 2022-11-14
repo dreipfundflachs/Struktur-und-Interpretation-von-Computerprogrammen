@@ -4,6 +4,11 @@
 
 ; 2.1.1
 
+#lang racket
+
+(provide ggt konstr-rat zaehler nenner add-rat sub-rat mul-rat div-rat
+         gleich-rat? drucke-rat ein-halbes ein-drittel) 
+
 (define (ggt a b)
   (if (= b 0)
     a
@@ -11,7 +16,7 @@
 
 (define (konstr-rat n d)
   (let ((g (ggt n d)))
-    (cons (/ n g) (/ d g))))
+  (cons (/ n g) (/ d g))))
 
 (define (zaehler z) (car z))
 
@@ -19,12 +24,12 @@
 
 (define (add-rat x y)
   (konstr-rat (+ (* (zaehler x) (nenner y))
-                 (* (nenner x) (zaehler y)))
+                 (* (zaehler y) (nenner x)))
               (* (nenner x) (nenner y))))
 
 (define (sub-rat x y)
   (konstr-rat (- (* (zaehler x) (nenner y))
-                 (* (zaehler y) (nenner y)))
+                 (* (zaehler y) (nenner x)))
               (* (nenner x) (nenner y))))
 
 (define (mul-rat x y)
@@ -48,15 +53,21 @@
 
 (define ein-drittel (konstr-rat 1 3))
 
+(define x (cons 1 2))
+
+(define y (cons 3 4))
+
+(define z (cons x y))
+
 ; 2.1.3
 
-(define (cons x y)
-  (define (zuteilen m)
-    (cond ((= m 0) x)
-          ((= m 1) y)
-          (else (error "Argument nicht 0 weder 1 -- CONS" m))))
-  zuteilen)
-
-(define (car z) (z 0))
-
-(define (cdr z) (z 1))
+; (define (cons x y)
+;   (define (zuteilen m)
+;     (cond ((= m 0) x)
+;           ((= m 1) y)
+;           (else (error "Argument nicht 0 weder 1 -- CONS" m))))
+;   zuteilen)
+; 
+; (define (car z) (z 0))
+; 
+; (define (cdr z) (z 1))
