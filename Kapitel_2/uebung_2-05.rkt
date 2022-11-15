@@ -2,38 +2,42 @@
 ;;;;  Lösung zur Übung 2.05 - SICP  ;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-(define (cons a b) (* (expt 2 a) (expt 3 b)))
+#lang racket
 
-(define (car z) (extrahiere 2 z))
+(provide cons-1 car-1 cdr-1 extrahiere z a b)
 
-(define (cdr z) (extrahiere 3 z))
+(define (cons-1 a b) (* (expt 2 a) (expt 3 b)))
 
-(define (extrahiere k n)
-  (if (= 0 (modulo n k))
-    (+ 1 (extrahiere k (/ n k)))
+(define (car-1 z) (extrahiere z 2))
+
+(define (cdr-1 z) (extrahiere z 3))
+
+(define (extrahiere n basis)
+  (if (= 0 (modulo n basis))
+    (+ 1 (extrahiere (quotient n basis) basis))
     0))
 
-; Beispiele:
+; Beispiel:
 
-(define z (cons 4 5))
+(define z (cons-1 4 5))
 
-(define a (car z))
+(define a (car-1 z))
 
-(define b (cdr z))
+(define b (cdr-1 z))
 
-; Beweis
+; Beweis:
 ;
-; Wir beweisen nur, dass cdr (cons a b) für alle positive ganze Zahlen gilt.
-; Der Beweis, dass auch car (cons a b) gilt, ist analog.
+; Wir beweisen nur, dass (cdr (cons a b)) = b für alle positive ganze Zahlen
+; gilt. Der Beweis, dass auch (car (cons a b)) = a gilt, ist ähnlich.
 ;
-; 1. cdr (cons a b) -> {Auswertung des Rumpfes von 'cdr' und 'cons'}
-; 2. (extrahiere 3 (* (expt 2 a) (expt 3 b))) -> {Auswertung des zweiten 
-;                                                 Arguments}
-; 3. (extrahiere 3 (2^a 3^b)) -> {Anwendung von 'extrahiere' auf ihre Argumente}
-; 4. (+ 1 (extrahiere 3 (2^a 3^(b - 1)))) -> {Anwendung von 'extrahiere'}
+; (cdr (cons a b))    {Auswertung des Rumpfes von 'cdr' und 'cons'}
+; = (extrahiere (* (expt 2 a) (expt 3 b)) 3)
+;   {Auswertung des ersten Arguments}
+; = (extrahiere (2^a 3^b) 3)    {'extrahiere' anwenden}
+; = (+ 1 (extrahiere 3 (2^a 3^(b - 1)))) -> {Anwendung von 'extrahiere'}
 ; .
 ; .
 ; .
-; (4 + b). (+ 1 (+ 1 (+ 1 ...(extrahiere 3 (2^a))))) -> {Anw. von 'extrahiere'}
-; (4 + b + 1). (+ 1 (+ 1 (+ 1 ...(+ 1 0))))
-; (4 + b + 2). b
+; = (+ 1 (+ 1 (+ 1 ... (extrahiere (2^a) 3))))    {Anw. von 'extrahiere'}
+; = (+ 1 (+ 1 (+ 1 ...(+ 1 0))))    {Addiere 1 zu sich selbst b Male}
+; = b

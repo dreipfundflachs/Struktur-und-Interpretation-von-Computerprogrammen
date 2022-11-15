@@ -2,8 +2,6 @@
 ;  SICP - Abschnitt 2.1  ;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-; 2.1.1
-
 #lang racket
 
 (provide ggt konstr-rat zaehler nenner add-rat sub-rat mul-rat div-rat
@@ -58,16 +56,3 @@
 (define y (cons 3 4))
 
 (define z (cons x y))
-
-; 2.1.3
-
-; (define (cons x y)
-;   (define (zuteilen m)
-;     (cond ((= m 0) x)
-;           ((= m 1) y)
-;           (else (error "Argument nicht 0 weder 1 -- CONS" m))))
-;   zuteilen)
-; 
-; (define (car z) (z 0))
-; 
-; (define (cdr z) (z 1))
