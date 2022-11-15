@@ -2,14 +2,11 @@
 ;;;;  Lösung zur Übung 2.10 - SICP  ;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-(define (kehr-intervall I)
-  (if (and (< (untere-grenze J) 0) (> (obere-grenze J) 0))
-  (error "Division durch ein Intervall, das Null enthält, ist nicht erlaubt!")
-  (konstr-intervall (/ 1.0 (obere-grenze I))
-                    (/ 1.0 (untere-grenze I)))))
+#lang racket
 
-(define (div-intervall I J)
-  (mul-intervall I (kehr-intervall J)))
+(provide add-intervall kehr-intervall div-intervall drucke-intervall
+         konstr-intervall untere-grenze obere-grenze
+         I J K)
 
 (define (konstr-intervall a b)
   (cons a b))
@@ -17,6 +14,15 @@
 (define (untere-grenze I) (car I))
 
 (define (obere-grenze I) (cdr I))
+
+(define (kehr-intervall I)
+  (if (and (<= (untere-grenze J) 0) (>= (obere-grenze J) 0))
+  (error "Division durch ein Intervall, das Null enthält, ist nicht erlaubt!")
+  (konstr-intervall (/ 1.0 (obere-grenze I))
+                    (/ 1.0 (untere-grenze I)))))
+
+(define (div-intervall I J)
+  (mul-intervall I (kehr-intervall J)))
 
 (define (add-intervall I J)
   (konstr-intervall (+ (untere-grenze I) (untere-grenze J))

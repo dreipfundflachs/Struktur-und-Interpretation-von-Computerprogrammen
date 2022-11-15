@@ -2,10 +2,18 @@
 ;;;;  Lösung zur Übung 2.09 - SICP  ;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
+#lang racket
+
+(provide breite add-intervall mul-intervall kehr-intervall
+         div-intervall sub-intervall drucke-intervall
+         konstr-intervall untere-grenze obere-grenze
+         I J K)
+
 (define (breite I)
   (/ (- (obere-grenze I) (untere-grenze I)) 2))
 
-; Es seien I = [a, b] und J = [c, d] zwei Intervalle.
+; Es seien I = [a, b] und J = [c, d] zwei Intervalle. Dann gelten:
+
 ;   (1) I + J = [a + c, b + d] und
 ;       breite(I + J) = ((b + d) - (a + c)) / 2
 ;                     = ((b - a) + (d - c)) / 2
@@ -17,18 +25,19 @@
 ;                     = breite(I) + breite(J)
 ;
 ; Andererseits gelten:
+
 ;   (3) Für I = [1, 2], J = [2, 3], ist I * J = [2, 6], dessen Breite
 ;       gleich 2 ist, während die Breiten von I und J beide gleich 1/2 sind.
 ;       Für I = [1, 2], K = [4, 5], ist I * K = [4, 10], dessen Breite gleich
 ;       3 ist, während die Breiten von I und K beide gleich 1/2 sind.
-;       Diese Beispiele zeigen also, dass die Breite der Multiplikation von
-;       zwei Intervallen keine Funktion dieser Argumentintervalle sein kann.
+;       Diese Beispiele zeigen also, dass die Breite des Produkts zweier
+;       Intervallen keine Funktion dieser Argumentintervalle sein kann.
 ;
 ;   (4) Für I = [1, 2], J = [2, 3], ist I / J = [1/3, 1], dessen Breite
 ;       gleich 1/3 ist, während die Breiten von I und J beide gleich 1/2 sind.
 ;       Für I = [1, 2], K = [4, 5], ist I / K = [1/5, 1/2], dessen Breite gleich
 ;       0.15 ist, während die Breiten von I und K beide gleich 1/2 sind.
-;       Diese Beispiele zeigen also, dass der Division von zwei Intervallen 
+;       Diese Beispiele zeigen also, dass der Quotient zweier Intervallen 
 ;       keine Funktion dieser Argumentintervalle sein kann.
 ;
 ; Man bemerke dazu, dass in diesen Beispielen das Vorzeichen der Grenzpunkten

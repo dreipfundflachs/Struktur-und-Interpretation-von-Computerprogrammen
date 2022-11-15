@@ -2,7 +2,24 @@
 ;  SICP - Abschnitt 2.1.4  ;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-; 2.1.4
+#lang racket
+
+(provide add-intervall mul-intervall kehr-intervall
+         div-intervall sub-intervall drucke-intervall
+         konstr-intervall untere-grenze obere-grenze
+         konstr-mittel-breite mittel
+         I J K L)
+
+; Implementierung von Intervallen:
+
+(define (konstr-intervall a b)
+  (cons a b))
+
+(define (untere-grenze I) (car I))
+
+(define (obere-grenze I) (cdr I))
+
+; Implementierung einer "Intervallarithmetik"
 
 (define (add-intervall I J)
   (konstr-intervall (+ (untere-grenze I) (untere-grenze J))
@@ -35,12 +52,11 @@
   (display (obere-grenze I))
   (display "]"))
 
-(define (konstr-intervall a b)
-  (cons a b))
+(define (konstr-mittel-breite m b)
+  (konstr-intervall (- m b) (+ m b)))
 
-(define (untere-grenze I) (car I))
-
-(define (obere-grenze I) (cdr I))
+(define (mittel I)
+  (/ (+ (untere-grenze I) (obere-grenze I)) 2))
 
 ; Beispiele von Intervallen:
 

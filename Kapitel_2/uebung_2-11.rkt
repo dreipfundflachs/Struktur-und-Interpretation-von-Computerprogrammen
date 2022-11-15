@@ -2,6 +2,12 @@
 ;;;;  Lösung zur Übung 2.11 - SICP  ;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
+#lang racket
+
+(provide mul-intervall drucke-intervall
+         konstr-intervall untere-grenze obere-grenze
+         I J K)
+
 ; Der einzige Fall, in dem man vier statt zwei Produkte berechnen muss, ist
 ; der Fall, worin beide Intervalle die Zahl 0 in ihren Inneren enthalten.
 
@@ -40,7 +46,6 @@
 (define (untere-grenze I) (car I))
 
 (define (obere-grenze I) (cdr I))
-
 
 (define (drucke-intervall I)
   (display "[")
