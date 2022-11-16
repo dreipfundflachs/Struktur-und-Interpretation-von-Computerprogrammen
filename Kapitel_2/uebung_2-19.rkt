@@ -2,6 +2,11 @@
 ;;;;  Lösung zur Übung 2.19 - SICP  ;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
+#lang racket
+
+(provide pfennig-muenzen uk-muenzen us-muenzen
+         erster-nennwert ausser-erstem-nennwert keine-mehr? wg)
+
 (define pfennig-muenzen (list 50 10 5 2 1))
 
 (define uk-muenzen (list 100 50 20 10 5 2 1 0.5))
@@ -22,7 +27,6 @@
              (wg (- betrag (erster-nennwert muenzarten)) muenzarten)))))
 
 ; Die Reihenfolge der Münzarten beinflusst nicht die Antwort, die wg liefert,
-; weil die Summe von ganzen Zahlen kommutativ ist. Z. B. weil
+; weil die Summe ganzer Zahlen kommutativ ist. Es gilt z. B.: 
 ;   100 = 50 + 25 + 10 + 10 + 5,
-; gilt auch
-;   100 = 5 + 10 + 10 + 50 + 25.
+;       = 5 + 10 + 10 + 50 + 25.

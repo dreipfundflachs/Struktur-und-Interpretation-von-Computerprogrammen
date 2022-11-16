@@ -10,7 +10,7 @@
 (define (viel-fach f n)
   (cond ((= n 0) identitaet)
         ((> n 0) (komposition f (viel-fach f (- n 1))))
-        (else error "Das zweite Argument n muss nichtnegative sein!")))
+        (else error "Das zweite Argument n muss nichtnegativ sein!")))
 
 ; Beispiel:
 

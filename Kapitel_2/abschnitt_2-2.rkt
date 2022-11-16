@@ -2,36 +2,88 @@
 ;  SICP - Abschnitt 2.2  ;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-(define x (cons 1 (cons 2 (cons 3 (cons 4 empty)))))
+#lang racket
 
-(define y (list 1 2 3 4))
+(provide x y z eins-bis-vier ungerade quadrate)
+
+(define x (cons (cons 1 2) (cons 3 4)))
+
+(define y (cons (cons 1 (cons 2 3)) 4))
+
+(define z (cons 1 (cons 2 (cons 3 (cons 4 empty)))))
+
+(define eins-bis-vier (list 1 2 3 4))
 
 ; Beispiele:
 
-; (car x) = 1
+(newline)
+(display "(car x) = (1, 2)")
+(newline)
+(car x)
+ 
+(newline)
+(display "(cdr x) = (3, 4):")
+(newline)
+(cdr x)
+ 
+(newline)
+(display "(cdar x) = 2:")
+(newline)
+(cdar x)
 
-; (cdr x) = (2 3 4)
+(newline)
+(display "(cadr x) = 3:")
+(newline)
+(cadr x)
+ 
+(newline)
+(display "(car z) = 1:")
+(newline)
+(car z)
 
-; (cadr x) = 2
+(newline)
+(display "(cdr z) = (2 3 4)")
+(newline)
+(cdr z)
+
+(newline)
+(display "(cadr z) = 2:")
+(newline)
+(cadr z)
+
+(newline)
+(display "(caddr z) = 3:")
+(newline)
+(caddr z)
+
+(newline)
+(display "(cadddr z) = 4:")
+(newline)
+(cadddr z)
+
+(newline)
+(display "(cddddr z) = nil")
+(newline)
+(cddddr z)
 
 ; (caar (list (list 1 2) 3)) = 1
-
+; 
 ; (cddr x) = (3 4)
-
+; 
 ; (cdddr x) = (4)
-
+; 
 ; (cddddr x) = null
-
+; 
 ; (caddr x) = 3
-
+; 
 ; (list-ref x 0) = 1
-
+; 
 ; (list-ref x 3) = 4
 
 (define (list-ref elemente n)
   (if (= n 0)
     (car elemente)
-    (list-ref elemente (- n 1))))
+    (list-ref (cdr elemente) (- n 1))))
 
 (define (length elemente)
   (if (null? elemente)
@@ -40,11 +92,11 @@
 
 (define ungerade (list 1 3 5 7))
 
-(define (length elemente)
-  (define (length-iter elemente ergebnis)
+(define (length1 elemente)
+  (define (length-iter elemente zaehler)
     (if (null? elemente)
-      ergebnis
-      (length-iter (cdr elemente) (+ 1 ergebnis))))
+      zaehler
+      (length-iter (cdr elemente) (+ 1 zaehler))))
   (length-iter elemente 0))
 
 (define quadrate (list 1 4 9 16 25))
@@ -66,7 +118,7 @@
     (cons (proz (car elemente))
           (abb proz (cdr elemente)))))
 
-(define (skaliere-liste elemente faktor)
+(define (skaliere-liste1 elemente faktor)
   (abb (lambda (x) (* x faktor))
        elemente))
 
@@ -75,8 +127,6 @@
 
 (define test2
   (lambda z (cadr z)))
-
-(define x (cons (list 1 2) (list 3 4)))
 
 (define (zaehle-blaetter x)
   (cond ((null? x) 0)
@@ -92,9 +142,9 @@
 
 (define liste-1 (list 1 (list 2 (list 3 4) 5) (list 6 7)))
 
-(define (skaliere-baum baum faktor)
-  (map (lambda teilbaum)
+(define (skaliere-baum1 baum faktor)
+  (map (lambda (teilbaum)
        (if (pair? teilbaum)
-         (skaliere-baum teilbaum faktor)
-         (* faktor teilbaum))
+         (skaliere-baum1 teilbaum faktor)
+         (* faktor teilbaum)))
   baum))
