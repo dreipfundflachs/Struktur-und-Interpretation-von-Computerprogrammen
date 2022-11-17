@@ -19,15 +19,26 @@
 \noindent \tit{\"Ubung 2.25}: Geben Sie Kombinationen von \ttt{car} und
 \ttt{cdr} an, die die $ 7 $ aus jeder der folgenden Listen herauspicken:
 \begin{enumerate}
-    \item [(a)] \ttt{(1 3 (5 7) 9)}
-    \item [(b)] \ttt{((7))} 
-    \item [(c)] \ttt{(1 (2 (3 (4 (5 (6 7))))))}
+    \item [(a)] \ttt{liste1} $ = $ \ttt{(1 3 (5 7) 9)}
+    \item [(b)] \ttt{liste2} $ = $ \ttt{((7))} 
+    \item [(c)] \ttt{liste3} $ = $ \ttt{(1 (2 (3 (4 (5 (6 7))))))}
 \end{enumerate}
 
 \begin{loes}\ 
 \begin{enumerate}[label=\small$\bullet$]
-    \item [(a)] \texttt{(car (cdr (car (cdr (cdr (liste))))))}
-    \item [(b)] \texttt{(car (car liste))}
+    \item [(a)]  \texttt{(car (cdr (car (cdr (cdr
+        (liste))))))}. Denn es gilt:
+        \begin{enumerate}
+            \item [\tb] \ttt{(cdr liste1)} $ = $ \texttt{(3 (5 7) 9)}
+            \item [\tb] \ttt{(cdr (cdr liste1))} $ = $ \texttt{((5 7) 9)}
+            \item [\tb] \ttt{(car (cdr (cdr liste1)))} $ = $
+                \texttt{(5 7)}
+            \item [\tb] \ttt{(cdr (car (cdr (cdr liste1))))} $ = $
+                \texttt{(7)}
+            \item [\tb] \ttt{(car (cdr (car (cdr (cdr liste1)))))} $ = $
+                \texttt{7}
+        \end{enumerate}
+    \item [(b)] \texttt{(car (car liste2))}
     \item [(c)] Man beachte zuerst, dass die Elemente dieser Liste nicht
         einfach die Zahlen $ 1, 2, \dots, 7 $ sind, sondern die Zahl $ 1 $ und
         eine andere Liste. Die letztere enth\"ahlt die Zahl $ 2 $ und eine

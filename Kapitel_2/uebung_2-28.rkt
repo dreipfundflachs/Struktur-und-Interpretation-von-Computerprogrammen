@@ -2,7 +2,15 @@
 ;;;;  Lösung zur Übung 2.28 - SICP  ;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-(define x (list 0 (list 1 2) (list 3 4) 5))
+#lang racket
+
+(provide x y z blaetter)
+
+(define x (list (list 1 2) (list 3 4)))
+
+(define y (list 0 (list 1 2) (list 3 4) 5))
+
+(define z (list x x))
 
 (define (blaetter liste)
   (cond ((null? liste) null)
@@ -13,6 +21,17 @@
 
 (display (blaetter x))
 (newline)
+(display (blaetter x))
+(newline)
 
-(display (blaetter (list x x)))
+(newline)
+(display y)
+(newline)
+(display (blaetter y))
+(newline)
+
+(newline)
+(display z)
+(newline)
+(display (blaetter z))
 (newline)

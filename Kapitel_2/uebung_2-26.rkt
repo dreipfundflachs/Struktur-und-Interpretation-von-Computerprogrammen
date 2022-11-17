@@ -2,6 +2,10 @@
 ;;;;  Lösung zur Übung 2.26 - SICP  ;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
+#lang racket
+
+(provide x y)
+
 (define x (list 1 2 3))
 
 (define y (list 4 5 6))
