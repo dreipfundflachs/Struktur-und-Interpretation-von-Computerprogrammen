@@ -2,6 +2,10 @@
 ;;;;  Lösung zur Übung 2.31 - SICP  ;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
+#lang racket
+
+(provide baum abb-baum quadrat kubik quadrat-baum)
+
 (define baum (list 0 (list 1 2) (list 3 4) 5))
 
 (define (abb-baum proz baum)
