@@ -10,7 +10,9 @@
          filter1 abb akkumuliere
          durchzaehlen-intervall durchzaehlen-baum
          liste-quadrate-fibs produkt-der-quadrate-ungerader-elemente
-         x y)
+         x y
+         glattabb primzahl? teilt? finde-teiler kleinster-teiler
+         primzahl-summe? konstr-paar-summe primzahl-summe-paare)
 
 (define (gerade? n) (= 0 (modulo n 2)))
 
@@ -99,3 +101,52 @@
                1
                (abb quadrat
                     (filter ungerade? sequenz))))
+
+; (akkumuliere append
+;              null
+;              (map (lambda (i)
+;                     (map (lambda (j) (list i j)))
+;                     (durchzaehlen-intervall 1 (- i 1)))
+;                   (durchzaehlen-intervall 1 n)))
+
+(define (glattabb proc seq)
+  (akkumuliere append null (abb proc seq)))
+
+(define (primzahl-summe? paar)
+  (primzahl? (+ (car paar) (cadr paar))))
+
+(define (konstr-paar-summe paar)
+  (list (car paar) (cadr paar) (+ (car paar) (cadr paar))))
+
+(define (kleinster-teiler n)
+  (finde-teiler n 2))
+
+(define (finde-teiler n pruef-teiler)
+  (cond ((> (quadrat pruef-teiler) n) n)
+        ((teilt? pruef-teiler n) pruef-teiler)
+        (else (finde-teiler n (+ pruef-teiler 1)))))
+
+(define (teilt? a b)
+  (= (remainder b a) 0))
+
+(define (primzahl? n)
+  (= n (kleinster-teiler n)))
+
+(define (primzahl-summe-paare n)
+  (abb konstr-paar-summe
+       (filter primzahl?
+               (glattabb
+                 (lambda (i)
+                   (abb (lambda (j) (list i j))
+                        (durchzaehlen-intervall 1 (- i 1))))
+                 (durchzaehlen-intervall 1 n)))))
+
+(define (permutationen m)
+  (if (null? m)
+    (list null)
+    (glattabb (lambda (x) (abb (lambda (p) (cons x p))
+                              (permutationen (entfernen x m))))
+             m)))
+
+(define (entfernen element sequenz)
+  (filter (lambda (x) (not (= x element))) sequenz))
