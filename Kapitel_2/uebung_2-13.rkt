@@ -5,10 +5,10 @@
 ; Man betrachte zwei Intervalle:
 ;
 ;   I_1 = [m_1 - p_1 m_1 , m_1 + p_1 m_1] = [m_1 (1 - p_1) , m_1 (1 + p_1)]
-;   I_2 = [m_2 - p_2 m_2 , m_2 + p_2 m_2] = [m_2 (2 - p_2) , m_2 (2 + p_2)]
+;   I_2 = [m_2 - p_2 m_2 , m_2 + p_2 m_2] = [m_2 (1 - p_2) , m_2 (1 + p_2)]
 ;
-; Hier ist m_j der Mittelpunkt von I_j und p_j sein in Prozent angegebene
-; Toleranz. Wenn beide untere Grenze positiv sind, dann ist
+; Hier ist m_j der Mittelpunkt von I_j und p_j seine in Prozent angegebene
+; Toleranz. Wenn beide untere Grenzen positiv sind, dann ist
 ;
 ;   I_1 * I_2 = [m_1 m_2 (1 - (p_1 + p_2) + p_1 p_2) ,
 ;                m_1 m_2 (1 + (p_1 + p_2) + p_1 p_2)].

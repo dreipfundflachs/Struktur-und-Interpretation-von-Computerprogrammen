@@ -7,7 +7,7 @@
 (provide x y z reverse-all rev-all
          reverse zaehle-blaetter baum?)
 
-; Einige Beispiele von Listen
+; Einige Beispiele von Listen:
 
 (define x (list 0 (list 1 2) (list 3 4) 5))
 

@@ -20,7 +20,7 @@
   (lambda (f) f))
 
 (define zwei
-  (lambda (f) (lambda (x) f (f x))))
+  (lambda (f) (lambda (x) (f (f x)))))
 
 (define (plus m n)
   (lambda (f) (m (n f))))
