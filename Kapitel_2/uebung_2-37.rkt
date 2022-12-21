@@ -10,6 +10,7 @@
 
 
 ; Akkumulieren:
+
 (define (akkumuliere op anfangswert sequenz)
   (if (null? sequenz)
     anfangswert
@@ -46,6 +47,7 @@
 
 
 ; Beispiele:
+
 (define m (list (list 1 2 3 4)
                 (list 4 5 6 6)
                 (list 6 7 8 9)))

@@ -13,4 +13,4 @@
 ; Nun ist
 ; (quote (quote abracadabra))
 ; eine Liste die zwei Elemente enthält: 'quote und 'abracadabra,
-; deshalb ist die Antwort der Interpretierer 'quote.
+; deshalb ist die Antwort des Interpretierers 'quote.

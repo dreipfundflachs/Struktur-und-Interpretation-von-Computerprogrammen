@@ -30,7 +30,8 @@
   (primzahl? (+ (car paar) (cadr paar))))
 
 (define (primzahl-summe-paare n)
-  (filter primzahl-summe? (eindeutige-paare n)))
+  (map (lambda (paar) (append paar (list (+ (car paar) (cadr paar)))))
+       (filter primzahl-summe? (eindeutige-paare n))))
 
 ; Prozeduren zur Berechnung von Primzahlen:
 

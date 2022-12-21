@@ -12,7 +12,8 @@
          liste-quadrate-fibs produkt-der-quadrate-ungerader-elemente
          x y
          glattabb primzahl? teilt? finde-teiler kleinster-teiler
-         primzahl-summe? konstr-paar-summe primzahl-summe-paare)
+         primzahl-summe? konstr-paar-summe primzahl-summe-paare
+         permutationen entfernen)
 
 (define (gerade? n) (= 0 (modulo n 2)))
 
@@ -134,7 +135,7 @@
 
 (define (primzahl-summe-paare n)
   (abb konstr-paar-summe
-       (filter primzahl?
+       (filter primzahl-summe?
                (glattabb
                  (lambda (i)
                    (abb (lambda (j) (list i j))
@@ -150,3 +151,15 @@
 
 (define (entfernen element sequenz)
   (filter (lambda (x) (not (= x element))) sequenz))
+
+; Beispiele:
+;
+(newline)
+(display "Triaden (i, j, i + j) mit 6 >= i > j und i + j eine Primzahl:")
+(newline)
+(primzahl-summe-paare 6)
+
+(newline)
+(display "Permutationen der Menge {1, 2, 3, 4}:")
+(newline)
+(permutationen (list 1 2 3 4))

@@ -42,8 +42,13 @@
 
 ; Beispiel:
 
-; Alle Tripel (i, j, k) mit 1 <= i < j < k <= 6:
+(newline)
+(display "Alle Triaden (i, j, k) mit 1 <= i < j < k <= 6:")
+(newline)
 (durchzaehlen-tripel 6)
 
-; Alle solche Tripel, deren Summe kleiner als 10 ist:
+
+(newline)
+(display "Alle solche Triaden, deren Summe kleiner als 10 ist:")
+(newline)
 (kleiner-als-summe-tripel 10 6)

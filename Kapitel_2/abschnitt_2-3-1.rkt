@@ -8,5 +8,5 @@
 
 (define (memq_1 element xs)
   (cond ((null? xs) false)
-        ((= element (car xs)) (cdr xs))
+        ((eq? element (car xs)) (cdr xs))
         (else (memq_1 element (cdr xs)))))

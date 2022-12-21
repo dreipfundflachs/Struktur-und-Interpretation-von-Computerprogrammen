@@ -16,6 +16,11 @@
     anfangswert
     (op (car sequenz) (fold-right op anfangswert (cdr sequenz)))))
 
+; Um zu garantieren, dass fold-left und fold-right für jede Sequenz dieselben
+; Werte liefern, muss die Kombinierungsoperation 'op' assoziativ sein, d.h.,
+; sie muss folgende Bedingung für alle a, b und c erfüllen:
+;   (op (op a b) c) = (op a (op b c))
+
 ; Beispiele:
 
 (fold-right / 1 (list 1 2 3))
