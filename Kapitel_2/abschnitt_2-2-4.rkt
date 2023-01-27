@@ -60,3 +60,17 @@
       (ursprung-rahmen rahmen)
       (add-vekt (skaliere-vekt (xkoord-vekt v) (kante1-rahmen rahmen))
                 (skaliere-vekt (ykoord-vekt v) (kante2-rahmen rahmen))))))
+
+(define (fuer-jedes proz elemente)
+  (cond ((null? elemente) (display ""))
+        (else
+          (proz (car elemente)) (fuer-jedes proz (cdr elemente)))))
+
+(define (strecken->maler strecken-liste)
+  (lambda (rahmen)
+    (fuer-jedes
+      (lambda (strecke)
+        (zeichne-linie
+          ((rahmen-koord-abb rahmen) (start-strecke strecke))
+          ((rahmen-koord-abb rahmen) (ende-strecke strecke))))
+      strecken-liste)))
