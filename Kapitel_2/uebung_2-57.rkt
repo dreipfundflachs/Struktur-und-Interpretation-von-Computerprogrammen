@@ -25,26 +25,27 @@
         (else (list '** basis exponent))))
 
 (define (ableitung ausdr var)
-  (cond ((number? ausdr) 0)
-        ((variable? ausdr)
+  (cond ([number? ausdr] 0)
+        ([variable? ausdr]
          (if (gleiche-variable? ausdr var)
            1
            0))
-        ((summe? ausdr)
-         (konstr-summe (ableitung (addend ausdr) var)
-                       (ableitung (augend ausdr) var)))
-        ((produkt? ausdr)
-         (konstr-summe
-           (konstr-produkt (multiplikator ausdr)
-                           (ableitung (multiplikand ausdr) var))
-           (konstr-produkt (ableitung (multiplikator ausdr) var)
-                           (multiplikand ausdr))))
-        ((potenz? ausdr)
-         (konstr-produkt
-           (konstr-produkt (exponent ausdr)
-                           (konstr-potenz (basis ausdr)
-                                          (- (exponent ausdr) 1)))
-           (ableitung (basis ausdr) var)))
+        ([summe? ausdr]
+         (konstr-summe (list (ableitung (addend ausdr) var)
+                             (ableitung (augend ausdr) var))))
+        ([produkt? ausdr]
+         (konstr-summe (list 
+                         (konstr-produkt
+                           (list (multiplikator ausdr)
+                                 (ableitung (multiplikand ausdr) var)))
+                         (konstr-produkt
+                           (list (ableitung (multiplikator ausdr) var)
+                                 (multiplikand ausdr))))))
+        ([potenz? ausdr]
+         (konstr-produkt (list (exponent ausdr)
+                               (konstr-potenz (basis ausdr)
+                                              (- (exponent ausdr) 1))
+                               (ableitung (basis ausdr) var))))
         (else
           (error "Unbekannter Ausdruck -- ABLEITUNG" ausdr))))
 
@@ -56,67 +57,75 @@
 (define (=number? ausdr zahl)
   (and (number? ausdr) (= ausdr zahl)))
 
-(define (konstr-summe a1 a2)
-  (cond ((=number? a1 0) a2)
-        ((=number? a2 0) a1)
-        ((and (number? a1) (number? a2) (+ a1 a2)))
-        (else (list '+ a1 a2))))
+(define (konstr-summe as)
+  (cond ([null? as] 0)
+        ([not (pair? as)] as)
+        ([= (length as) 1] (car as))
+        ([=number? (car as) 0] (konstr-summe (cdr as)))
+        ([=number? (konstr-summe (cdr as)) 0] (car as))
+        ([and (number? (car as)) (number? (konstr-summe (cdr as)))]
+         (+ (car as) (konstr-summe (cdr as))))
+        (else (cons '+ as))))
 
-(define (konstr-summe-liste as)
-  (cond [(= (length as) 2)
-         (konstr-summe (car as) (cadr as))]
-        [else (konstr-summe (car as) (konstr-summe-liste (cdr as)))]))
+(define (konstr-produkt ps)
+  (cond ([null? ps] 1)
+        ([not (pair? ps)] ps)
+        ([= (length ps) 1] (car ps))
+        ([=number? (car ps) 1] (konstr-produkt (cdr ps)))
+        ([=number? (konstr-produkt (cdr ps)) 1] (car ps))
+        ([=number? (car ps) 0] 0)
+        ([=number? (konstr-produkt (cdr ps)) 0] 0)
+        ([and (number? (car ps)) (number? (konstr-produkt (cdr ps)))]
+         (* (car ps) (konstr-produkt (cdr ps))))
+        (else (cons '* ps))))
 
-(define (konstr-produkt m1 m2)
-  (cond ((=number? m1 0) 0)
-        ((=number? m1 1) m2)
-        ((=number? m2 0) 0)
-        ((=number? m2 1) m1)
-        ((and (number? m1) (number? m2)) (* m1 m2))
-        (else (list '* m1 m2))))
+(define (summe? ausdr)
+  (or (and (pair? ausdr) (eq? (car ausdr) '+))
+      (not (pair? ausdr))))
 
-(define (konstr-produkt-liste ms)
-  (cond [(= (length ms) 2)
-         (konstr-produkt (car ms) (cadr ms))]
-        [else (konstr-produkt (car ms) (konstr-produkt-liste (cdr ms)))]))
-
-(define (summe? x)
-  (and (pair? x) (eq? (car x) '+)))
-
-(define (addend s) (cadr s))
+(define (addend s)
+  (if (not (pair? s))
+    s
+    (cadr s)))
 
 (define (augend s)
-  (let ((a (cddr s)))
-    (if (= (length a) 1)
-      (car a)
-      (konstr-summe-liste a))))
+  (if (not (pair? s))
+    0
+    (konstr-summe (caddr s))))
 
-(define (produkt? x)
-  (and (pair? x) (eq? (car x) '*)))
+(define (produkt? ausdr)
+  (or (and (pair? ausdr) (eq? (car ausdr) '*))
+      (not (pair? ausdr))))
 
-(define (multiplikator p) (cadr p))
+(define (multiplikator p)
+  (if (not (pair? p))
+    p
+    (cadr p)))
 
 (define (multiplikand p)
-  (let ((m (cddr p)))
-    (if (= (length m) 1)
-      (car m)
-      (konstr-produkt-liste m))))
+  (if (not (pair? p))
+    1
+    (konstr-produkt (caddr p))))
 
 ; Beispiele:
 
+(define s '(+ x 3 x))
+(summe? s)
+(konstr-summe '(x 3 x))
+(konstr-summe '(3 x))
 ; Ableitung von (x + 3) = 1
 (newline)
-'(+ x 3)
-(ableitung '(+ x 3) 'x)
+'(+ (x 3))
+(ableitung '(+ x 3 x) 'x)
 (newline)
 
 ; Ableitung von xy = y
-'(* x y)
+(konstr-produkt '(x y))
 (ableitung '(* x y) 'x)
 (newline)
 
 ; Ableitung von xy(x + 3) nach x = y(x + 3) + xy
-(ableitung (konstr-produkt-liste '(x y (+ x 3))) 'x)
+(ableitung (konstr-produkt '(x y (+ x 3))) 'x)
 (newline)
 
 ; Ableitung von x**3 nach x = 3x**2

@@ -4,7 +4,7 @@
 
 #lang racket
 
-(provide welle)
+(provide welle eck-geteilt quadratische-grenzen)
 
 ; (a)
 
