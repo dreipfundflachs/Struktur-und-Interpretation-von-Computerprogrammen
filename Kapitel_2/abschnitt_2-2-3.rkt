@@ -22,15 +22,15 @@
 (define (quadrat x) (* x x))
 
 (define (summe-ungerade-quadrate1 baum)
-  (cond ((null? baum) 0)
-        ((not (pair? baum))
+  (cond ([null? baum] 0)
+        ([not (pair? baum])
          (if (ungerade? baum) (quadrat baum) 0))
         (else (+ (summe-ungerade-quadrate1 (car baum)))
               (summe-ungerade-quadrate1 (cdr baum)))))
 
 (define (fib-iter a b n)
-  (cond ((= n 0) a)
-        ((= n 1) b)
+  (cond ([= n 0] a)
+        ([= n 1] b)
         (else (fib-iter b (+ a b) (- n 1)))))
 
 (define (fib n)
@@ -47,13 +47,13 @@
   (naechstes 0))
 
 (define (filter1 praedikat liste)
-  (cond ((null? liste) null)
-        ((praedikat (car liste)) (cons (car liste)
+  (cond ([null? liste] null)
+        ([praedikat (car liste)] (cons (car liste)
                                        (filter1 praedikat (cdr liste))))
         (else (filter1 praedikat (cdr liste)))))
 
 (define (abb f liste)
-  (cond ((null? liste) null)
+  (cond ([null? liste] null)
         (else (cons (f (car liste))
                     (abb f (cdr liste))))))
 
@@ -72,8 +72,8 @@
     (cons unten (durchzaehlen-intervall (+ unten 1) oben))))
 
 (define (durchzaehlen-baum baum)
-  (cond ((null? baum) null)
-        ((not (pair? baum)) (list baum))
+  (cond ([null? baum] null)
+        ([not (pair? baum)] (list baum))
         (else (append (durchzaehlen-baum (car baum))
                       (durchzaehlen-baum (cdr baum))))))
 
@@ -123,8 +123,8 @@
   (finde-teiler n 2))
 
 (define (finde-teiler n pruef-teiler)
-  (cond ((> (quadrat pruef-teiler) n) n)
-        ((teilt? pruef-teiler n) pruef-teiler)
+  (cond ([> (quadrat pruef-teiler) n] n)
+        ([teilt? pruef-teiler n] pruef-teiler)
         (else (finde-teiler n (+ pruef-teiler 1)))))
 
 (define (teilt? a b)
