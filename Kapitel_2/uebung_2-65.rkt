@@ -11,8 +11,8 @@
 
 ; Im Gegensatz zur Aussage der Übung, um θ(n) Prozeduren zu erhalten, muss man
 ; annehmen, dass die Mengen nicht nur als ausgewogene binäre Bäume repräsentiert
-; sind, sondern als binären _Suchbäume_. 
-;
+; sind, sondern als binäre _Suchbäume_. 
+
 (define (vereinigungs-baum baum-1 baum-2)
   (liste->baum (vereinigung (baum->liste baum-1)
                              (baum->liste baum-2))))
