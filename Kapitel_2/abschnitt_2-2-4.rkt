@@ -2,7 +2,8 @@
 ;  SICP - Abschnitt 2.2.4  ;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-#lang racket
+#lang sicp
+(#%require sicp-pict)
 
 (define welle2 (neben welle (kippen-vert welle)))
 

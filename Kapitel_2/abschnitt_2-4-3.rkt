@@ -4,6 +4,15 @@
 
 #lang racket
 
+(provide etikettieren
+         installiere-rechteck-package installiere-polar-package
+         add-komplex sub-komplex mul-komplex div-komplex
+         reeller-teil imag-teil
+         abs-wert winkel
+         konstr-aus-reell-imag
+         konstr-aus-abs-wkl
+         anwenden-generisch)
+
 (define (etikettieren typ-etikett inhalt)
   (cons typ-etikett inhalt))
 
@@ -56,7 +65,7 @@
        (lambda (r a) (etikett (konstr-aus-abs-wkl r a))))
   'fertig)
 
-; Implementierung einer allgemeinen Operations-Prozedur
+; Implementierung einer allgemeinen Operations-Prozedur:
 (define (anwenden-generisch op . args)
   (let ([typ-etiketten (map etikettieren args)])
     (let ([proc (get op typ-etiketten)])
@@ -65,7 +74,7 @@
         (error "Keine Methode für diese Typen -- ANWENDEN-GENERISCH"
                (list op typ-etiketten))))))
 
-; Implementierung der generischen Selektoren
+; Implementierung der generischen Selektoren:
 (define (reeller-teil z) (anwenden-generisch 'reeller-teil z))
 (define (imag-teil z) (anwenden-generisch 'imag-teil z))
 (define (abs-wert z) (anwenden-generisch 'abs-wert z))
@@ -81,3 +90,20 @@
 
 ; Zusätzliche Prozedur:
 (define (quadrat t) (* t t))
+
+; Implementierung von arithmetischen Operationen:
+(define (add-komplex z1 z2)
+  (konstr-aus-reell-imag (+ (reeller-teil z1) (reeller-teil z2))
+                        (+ (imag-teil z1) (imag-teil z2))))
+
+(define (sub-komplex z1 z2)
+  (konstr-aus-reell-imag (- (reeller-teil z1) (reeller-teil z2))
+                        (- (imag-teil z1) (imag-teil z2))))
+
+(define (mul-komplex z1 z2)
+  (konstr-aus-abs-wkl (* (abs-wert z1) (abs-wert z2))
+                      (+ (winkel z1) (winkel z2))))
+
+(define (div-komplex z1 z2)
+  (konstr-aus-abs-wkl (/ (abs-wert z1) (abs-wert z2))
+                      (- (winkel z1) (winkel z2))))
