@@ -4,7 +4,7 @@
 
 #lang racket
 
-(provide etikettieren
+(provide etikettieren typ-etikett inhalt
          installiere-rechteck-package installiere-polar-package
          add-komplex sub-komplex mul-komplex div-komplex
          reeller-teil imag-teil
@@ -15,6 +15,16 @@
 
 (define (etikettieren typ-etikett inhalt)
   (cons typ-etikett inhalt))
+
+(define (typ-etikett datum)
+  (if (pair? datum)
+    (car datum)
+    (error "Fehler beim Datentyp -- TYP-ETIKETT" datum)))
+
+(define (inhalt datum)
+  (if (pair? datum)
+    (cdr datum)
+    (error "Fehler beim Datentyp -- INHALT" datum)))
 
 (define (installiere-rechteck-package)
   ; interne Prozeduren:
@@ -54,7 +64,7 @@
           (atan y x)))
 
   ; Schnittstelle zum übrigen System:
-  (define (etikett x) (etikettieren 'polar x))
+  (define (etikett z) (etikettieren 'polar z))
   (put 'reeller-teil '(polar) reeller-teil)
   (put 'imag-teil '(polar) imag-teil)
   (put 'abs-wert '(polar) abs-wert)
@@ -67,7 +77,7 @@
 
 ; Implementierung einer allgemeinen Operations-Prozedur:
 (define (anwenden-generisch op . args)
-  (let ([typ-etiketten (map etikettieren args)])
+  (let ([typ-etiketten (map typ-etikett args)])
     (let ([proc (get op typ-etiketten)])
       (if proc
         (apply proc (map inhalt args))

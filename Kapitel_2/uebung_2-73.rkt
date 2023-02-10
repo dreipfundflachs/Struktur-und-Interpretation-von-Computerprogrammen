@@ -1,9 +1,17 @@
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;  Lösung zur Übung 2.73 - SICP  ;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
 #lang racket
 
-(provide variable? gleiche-variable?  =number?
-         summe? addend augend konstr-summe
-         produkt? multiplikator multiplikand konstr-produkt
-         ableitung)
+(provide ableitung
+         installiere-summe-paket
+         installiere-produkt-paket
+         installiere-potenz-paket
+         operator operanden
+         konstr-summe konstr-produkt konstr-potenz
+         ableitung
+         variable? gleiche-variable? =number?)
 
 ; (a)
 (define (ableitung ausdr var)
@@ -20,7 +28,8 @@
 
 ; Wir können die Prädikate 'number?' und 'variable?' nicht in den
 ; datengesteuerten Verteiler aufnehmen, weil die Ausdrücke, die sie genügen,
-; nur aus einem einzigem Operand bestehen.
+; nur aus einem einzigem Operand bestehen und mit keinem entsprechenden
+; Operator assoziiert sind.
 
 ; (b)
 (define (installiere-summe-paket)
@@ -100,9 +109,6 @@
 
 (define konstr-potenz
   (get 'konstr-potenz '**))
-
-(define (potenz? ausdr)
-  (and (pair? ausdr) (eq? (car ausdr) '**)))
 
 ; (d) Wir müssten dann die Reihenfolge der Indizierungsargumenten in jedem
 ; Aufruf von 'put' invertieren.
