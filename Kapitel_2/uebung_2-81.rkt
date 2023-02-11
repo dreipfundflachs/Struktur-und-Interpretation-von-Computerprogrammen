@@ -4,15 +4,7 @@
 
 #lang racket
 
-(put 'add '(komplex scheme-zahl)
-     (lambda z x) (etikett (add-komplex-mit-scheme-zahl z x)))
-
-(define (scheme-zahl->komplex n)
-  (konstr-komplex-aus-reell-imag (inhalt n) 0))
-
-(put-typanpassung 'scheme-zahl 'komplex scheme-zahl->komplex)
-
-(define (anwenden-generisch op .args)
+(define (anwenden-generisch op . args)
   (let ([typ-etiketten (map typ-etikett args)])
     (let ([proc (get op typetiketten)])
       (if proc
@@ -40,15 +32,15 @@
 ; (a) und (b):  Nehmen wir an, wir versuchten 'anwenden-generisch' auf zwei
 ; Argumente desselben Typs T und auf eine Operation anzuwenden, die für
 ; Argumente dieses Typs nicht implementiert ist. Dann versucht
-; 'anwenden-generisch' zunächst das erste Argument in einen anderen des Typs T
-; anzupassen, und dann das zweite Argument. Wenn wir mit der ursprüngliche
+; 'anwenden-generisch' zunächst das erste Argument an den Typ T ,,anzupassen''
+; und dann das zweite Argument. Wenn wir mit der ursprünglichen
 ; Definition von 'anwenden-generisch' zu tun haben, dann erhalten wir einen
-; Fehler, weil diese Anpassungsprozedur nicht definiert wurde.
+; Fehler, weil diese Anpassungsprozedur T->T nicht definiert wurde.
 ;
-; Wenn wir aber den Vorschlag von Louis Reasoner folgen, dann würde die erste
-; Anpassung erfolgreich sein, das erste Argument unverändert als Ergebnis
-; liefern, und dann noch einmal 'anwenden-generisch' aufrufen, und so weiter
-; unaufhörlich.
+; Wenn wir aber den Vorschlag von Louis Reasoner folgen würden, dann würde die
+; erste Anpassung erfolgreich sein, das erste Argument würde unverändert als
+; Ergebnis geliefert werden, und endlich würde 'anwenden-generisch' noch einmal
+; aufgerufen werden, und so weiter unaufhörlich.
 ;
 ; Deshalb funktioniert 'anwenden-generisch' korrekt so wie es
 ; ursprünglich implementiert wurde. Dagegen ist der Vorschlag von Louis
@@ -56,7 +48,7 @@
 
 ; (c)
 
-(define (anwenden-generisch op .args)
+(define (anwenden-generisch op . args)
   (define (keine-methode typen)
     (error "Keine Methode für diese Typen"
            (list op typen)))

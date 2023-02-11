@@ -9,8 +9,7 @@
          installieren-scheme-zahl-package
          installieren-rationales-package
          installieren-komplex-package
-         konstr-scheme-zahl konstr-rational
-         )
+         konstr-scheme-zahl konstr-rational)
 
 (define (add x y) (anwenden-generisch 'add x y))
 (define (sub x y) (anwenden-generisch 'sub x y))
