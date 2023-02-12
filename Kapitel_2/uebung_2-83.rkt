@@ -6,7 +6,7 @@
 
 (provide erhoehen)
 
-(define (installieren-ganzezahliges-package)
+(define (installieren-ganzzahliges-package)
   ;; interne Prozeduren:
   (define (erhoehen n) (konstr-rational n 1))
   ;...
