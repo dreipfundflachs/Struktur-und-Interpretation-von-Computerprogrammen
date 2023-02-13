@@ -4,26 +4,21 @@
 
 #lang racket
 
-(provide zufall zufall-init zufall-aktuell z)
+(provide zufall zufall-init zufall-aktualisieren)
 
 (define zufall-init 0)
 
-(define (zufall-aktuell x)
-  (+ x 1))
+(define (zufall-aktualisieren x) (+ x 1))
 
-(define (zufall n)
+(define zufall
   (let ([x zufall-init])
-    (define (generieren)
-      (begin (set! x (zufall-aktuell x))
-             x))
-    (define (zuruecksetzen neuer-wert)
-      (begin (set! x neuer-wert)
-             x))
     (define (zuteilen nachricht)
-      (cond ([eq? nachricht 'generieren] (generieren))
-            ([eq? nachricht 'zuruecksetzen] zuruecksetzen)
+      (cond ([eq? nachricht 'generieren]
+             (begin (set! x (zufall-aktualisieren x))
+                    x))
+            ([eq? nachricht 'zuruecksetzen]
+             (lambda (neuer-wert)
+               (begin (set! x neuer-wert)
+                      x)))
             (else (error "Unbekannte Forderung -- ZUFALL"))))
-    (zuteilen n)))
-
-(define z zufall)
-    
+    zuteilen))

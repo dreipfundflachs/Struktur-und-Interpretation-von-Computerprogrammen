@@ -4,9 +4,9 @@
 
 #lang racket
 
-(provide konstr-konto kto kto2)
+(provide konstr-konto kto)
 
-(define (polizei-rufen betrag) "Die Polizei ist hier!")
+(define (polizei-rufen betrag) "Die Polizei kommt!")
 
 (define (konstr-konto kontostand geheimes-kennwort)
   (let ([zaehler 0])
@@ -34,4 +34,13 @@
     zuteilen))
 
 (define kto (konstr-konto 100 'geheim))
-(define kto2 (konstr-konto 100 'abc123))
+((kto 'geheim 'abheben) 10)
+((kto 'geheim 'einzahlen) 20)
+((kto 'falsches-kennwort 'einzahlen) 20)
+((kto 'falsches-kennwort 'einzahlen) 20)
+((kto 'falsches-kennwort 'einzahlen) 20)
+((kto 'falsches-kennwort 'einzahlen) 20)
+((kto 'falsches-kennwort 'einzahlen) 20)
+((kto 'falsches-kennwort 'einzahlen) 20)
+((kto 'falsches-kennwort 'einzahlen) 20)
+((kto 'falsches-kennwort 'einzahlen) 20)
