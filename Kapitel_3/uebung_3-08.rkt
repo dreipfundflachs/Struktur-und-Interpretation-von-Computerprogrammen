@@ -13,12 +13,12 @@
              a))))
 
 (define g
-  (let ([a 1])
+  (let ([b 1])
     (lambda (x)
-      (begin (set! a (* a x))
-             a))))
+      (begin (set! b (* b x))
+             b))))
 
 ; Man bemerke, dass f und g dieselbe Definition haben, aber:
 (+ (f 0) (f 1))
 
-(+ (g 1) (g 0))
+(+ (g 1) (f 0))
