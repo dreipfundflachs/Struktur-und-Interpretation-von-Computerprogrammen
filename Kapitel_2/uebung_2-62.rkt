@@ -4,7 +4,7 @@
 
 #lang racket
 
-(provide vereinigungs-menge
+(provide vereinigungs-menge vereinigung
          nullmenge menge-3 menge-5 menge-gerade menge-ungerade)
 
 (define (vereinigung menge-1 menge-2)
@@ -17,6 +17,8 @@
                                                        menge-2))]
                       [(< x2 x1) (cons x2 (vereinigung menge-1
                                                        (cdr menge-2)))]))]))
+
+(define vereinigungs-menge vereinigung)
 
 ; Beispiele:
 

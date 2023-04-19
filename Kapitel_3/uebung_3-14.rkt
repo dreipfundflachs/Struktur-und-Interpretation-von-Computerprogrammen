@@ -13,7 +13,7 @@
   (define (schleife x y)
     (if (null? x)
       y
-      (let [(temp (cdr x))]
+      (let [(temp (mcdr x))]
         (set-cdr! x y)
         (schleife temp x))))
   (schleife x '()))
@@ -21,3 +21,10 @@
 (define v (mlist 'a 'b 'c 'd))
 
 (define w (mysterioes v))
+
+; `mysterioes` liefert als Ergebnis ein neues Objekt, das sein Argument in
+; umgekehrter Reihenfolge gleicht. Das Argument selbst wird schon nach dem
+; ersten Aufruf von `schleife` modifiziert, so dass sein cdr in Null
+; umgewandelt wird.  Die folgende Aufrufe von `schleife` modifizieren das
+; originelle Argument nicht mehr; deswegen gleicht as am Ende eine Liste, die
+; nur aus dem originellen car besteht.

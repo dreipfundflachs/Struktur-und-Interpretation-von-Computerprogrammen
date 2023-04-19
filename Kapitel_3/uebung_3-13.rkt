@@ -24,6 +24,6 @@
 
 (define z (konstr-ring (mlist 'a 'b 'c)))
 
-; Wenn wir (letztes-parr z) zu berechnen versuchen, würde sich eine eindlose
-; Schleife ergeben, denn `letztes-paar` würde nie das Ende von z erreichen. In
-; der Tat, z enthält den Nullelement nicht.
+; Wenn wir (letztes-parr z) zu berechnen versuchten, würde sich eine
+; eindlose Schleife ergeben, denn `letztes-paar` würde nie das Ende von z
+; erreichen. In der Tat, z enthält den Nullelement nicht.

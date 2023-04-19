@@ -31,6 +31,7 @@
                                                        menge-2))]
                       [(< x2 x1) (cons x2 (vereinigung menge-1
                                                        (cdr menge-2)))]))]))
+
 (define (schnitt-menge menge-1 menge-2)
   (if (or (null? menge-1) (null? menge-2))
     null
